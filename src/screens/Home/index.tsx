@@ -6,6 +6,17 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { Car } from '../../components/Car';
 
 export function Home() {
+  const carData = {
+    brand: 'Celta',
+    name: 'Celta 2012 1.0',
+    rent: {
+      period: 'Ao dia',
+      price: 60,
+    },
+    thumbnail:
+      'https://media.gm.com/content/Pages/news/br/pt/2011/Feb/0202_celta/jcr:content/image.resize.maxw_600.jpg/1301066044243.jpg',
+  };
+
   return (
     <Container>
       <StatusBar
@@ -21,7 +32,7 @@ export function Home() {
         </HeaderContentent>
       </Header>
 
-      <Car />
+      <Car data={carData} />
     </Container>
   );
 }
