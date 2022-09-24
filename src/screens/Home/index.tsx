@@ -3,6 +3,7 @@ import { StatusBar } from 'react-native';
 import Logo from '../../assets/logo.svg';
 import { Container, Header, HeaderContentent, TotalCars } from './styles';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { Car } from '../../components/Car';
 
 export function Home() {
   return (
@@ -19,6 +20,8 @@ export function Home() {
           <TotalCars>Total de 12 carros</TotalCars>
         </HeaderContentent>
       </Header>
+
+      <Car />
     </Container>
   );
 }
