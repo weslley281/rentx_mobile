@@ -6,7 +6,7 @@ import { BorderlessButtonProps } from 'react-native-gesture-handler';
 import theme from '../../styles/theme';
 
 interface Props extends BorderlessButtonProps {
-  color: string;
+  color?: string;
 }
 
 export function BackButton({ color, ...rest }: Props) {

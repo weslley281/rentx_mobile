@@ -12,6 +12,7 @@ import {
   Content,
   Description,
   Details,
+  Footer,
   Header,
   Name,
   Period,
@@ -25,6 +26,7 @@ import ForceSvg from '../../assets/force.svg';
 import GasolineSvg from '../../assets/gasoline.svg';
 import ExchangeSvg from '../../assets/exchange.svg';
 import PeopleSvg from '../../assets/people.svg';
+import { Button } from '../../components/Button';
 
 export function CarDetails() {
   return (
@@ -76,6 +78,10 @@ export function CarDetails() {
           Lorem Ipsum.
         </About>
       </Content>
+
+      <Footer>
+        <Button title="Alugar" />
+      </Footer>
     </Container>
   );
 }
