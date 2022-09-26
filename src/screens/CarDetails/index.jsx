@@ -1,9 +1,11 @@
 import React from 'react';
+import { Accessory } from '../../components/Accessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 
 import {
   About,
+  Accessories,
   Brand,
   CarImages,
   Container,
@@ -16,6 +18,13 @@ import {
   Price,
   Rent,
 } from './styles';
+
+import SpeedSvg from '../../assets/speed.svg';
+import AccelerationSvg from '../../assets/acceleration.svg';
+import ForceSvg from '../../assets/force.svg';
+import GasolineSvg from '../../assets/gasoline.svg';
+import ExchangeSvg from '../../assets/exchange.svg';
+import PeopleSvg from '../../assets/people.svg';
 
 export function CarDetails() {
   return (
@@ -44,6 +53,15 @@ export function CarDetails() {
             <Price>R$ 60.00</Price>
           </Rent>
         </Details>
+
+        <Accessories>
+          <Accessory name="120Km/h" icon={SpeedSvg} />
+          <Accessory name="1.2s" icon={AccelerationSvg} />
+          <Accessory name="200 HP" icon={ForceSvg} />
+          <Accessory name="Gasoline" icon={GasolineSvg} />
+          <Accessory name="Auto" icon={ExchangeSvg} />
+          <Accessory name="5 pessoas" icon={PeopleSvg} />
+        </Accessories>
 
         <About>
           Lorem Ipsum é simplesmente um texto fictício da indústria tipográfica
