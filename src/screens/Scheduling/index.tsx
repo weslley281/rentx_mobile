@@ -5,14 +5,17 @@ import ArrowSvg from '../../assets/arrow.svg';
 
 import {
   Container,
+  Content,
   DateInfo,
   DateTitle,
   DateValue,
+  Footer,
   Header,
   RentalPeriod,
   Title,
 } from './styles';
 import { StatusBar } from 'react-native';
+import { Button } from '../../components/Button';
 
 export function Scheduling() {
   const theme = useTheme();
@@ -45,6 +48,12 @@ export function Scheduling() {
           </DateInfo>
         </RentalPeriod>
       </Header>
+
+      <Content></Content>
+
+      <Footer>
+        <Button title="Confirmar" />
+      </Footer>
     </Container>
   );
 }
