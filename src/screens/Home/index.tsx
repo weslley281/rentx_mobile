@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import Logo from '../../assets/logo.svg';
 import {
@@ -12,7 +13,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { Car } from '../../components/Car';
 
 export function Home() {
-  const navigation = useNavigation;
+  const navigation = useNavigation();
   const carData = {
     brand: 'Celta',
     name: 'Celta 2012 1.0',
@@ -24,7 +25,9 @@ export function Home() {
       'https://media.gm.com/content/Pages/news/br/pt/2011/Feb/0202_celta/jcr:content/image.resize.maxw_600.jpg/1301066044243.jpg',
   };
 
-  function handleCarDetails() {}
+  function handleCarDetails() {
+    navigation.navigate('CarDetails');
+  }
 
   return (
     <Container>
@@ -44,7 +47,9 @@ export function Home() {
       <CarList
         data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
         keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => <Car data={carData} />}
+        renderItem={({ item }) => (
+          <Car data={carData} onPress={handleCarDetails} />
+        )}
       />
     </Container>
   );
