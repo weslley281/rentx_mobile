@@ -14,6 +14,7 @@ import { Car } from '../../components/Car';
 
 export function Home() {
   const navigation = useNavigation();
+
   const carData = {
     brand: 'Celta',
     name: 'Celta 2012 1.0',
