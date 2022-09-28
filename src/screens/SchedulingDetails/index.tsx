@@ -45,7 +45,7 @@ export function SchedulingDetails() {
   const navigation = useNavigation();
 
   function handleConfirm() {
-    navigation.navigate('SchedulingDetails');
+    navigation.navigate('SchedulingComplete');
   }
 
   return (
