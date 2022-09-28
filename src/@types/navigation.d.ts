@@ -5,7 +5,7 @@ export declare global {
       Scheduling: undefined;
       SchedulingDetails: undefined;
       SchedulingConfirm: undefined;
-      CarDeatails: undefined;
+      CarDetails: undefined;
     }
   }
 }
