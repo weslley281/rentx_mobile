@@ -12,6 +12,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { Car } from '../../components/Car';
 
 export function Home() {
+  const navigation = useNavigation;
   const carData = {
     brand: 'Celta',
     name: 'Celta 2012 1.0',
@@ -22,6 +23,8 @@ export function Home() {
     thumbnail:
       'https://media.gm.com/content/Pages/news/br/pt/2011/Feb/0202_celta/jcr:content/image.resize.maxw_600.jpg/1301066044243.jpg',
   };
+
+  function handleCarDetails() {}
 
   return (
     <Container>
