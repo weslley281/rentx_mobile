@@ -13,22 +13,12 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { Car } from '../../components/Car';
 import { api } from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
+import { Load } from '../../components/Load';
 
 export function Home() {
   const [cars, setCars] = useState<CarDTO>([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-
-  const carData = {
-    brand: 'Celta',
-    name: 'Celta 2012 1.0',
-    rent: {
-      period: 'Ao dia',
-      price: 60,
-    },
-    thumbnail:
-      'https://media.gm.com/content/Pages/news/br/pt/2011/Feb/0202_celta/jcr:content/image.resize.maxw_600.jpg/1301066044243.jpg',
-  };
 
   function handleCarDetails() {
     navigation.navigate('CarDetails');
@@ -45,6 +35,8 @@ export function Home() {
         setLoading(false);
       }
     }
+
+    fetchCars();
   }, []);
 
   return (
@@ -62,13 +54,17 @@ export function Home() {
         </HeaderContentent>
       </Header>
 
-      <CarList
-        data={cars}
-        keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => (
-          <Car data={carData} onPress={handleCarDetails} />
-        )}
-      />
+      {loading ? (
+        <Load />
+      ) : (
+        <CarList
+          data={cars}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Car data={item} onPress={handleCarDetails} />
+          )}
+        />
+      )}
     </Container>
   );
 }
