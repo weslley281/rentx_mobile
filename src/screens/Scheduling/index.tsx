@@ -13,7 +13,7 @@ import {
   RentalPeriod,
   Title,
 } from './styles';
-import { StatusBar } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { Button } from '../../components/Button';
 import {
   Calendar,
@@ -46,7 +46,13 @@ export function Scheduling() {
   );
 
   function handleConfirmRental() {
-    navigation.navigate('SchedulingDetails');
+    if (!rentalPeriod.start || !rentalPeriod.end) {
+      Alert.alert('Selecione um intervalo para alugar.');
+    }
+    navigation.navigate('SchedulingDetails', {
+      car,
+      dates: Object.keys(markedDates),
+    });
   }
 
   function handleBack() {
@@ -97,14 +103,18 @@ export function Scheduling() {
         <RentalPeriod>
           <DateInfo>
             <DateTitle>De</DateTitle>
-            <DateValue selected={true}>{rentalPeriod.startFormatted}</DateValue>
+            <DateValue selected={!!rentalPeriod.startFormatted}>
+              {rentalPeriod.startFormatted}
+            </DateValue>
           </DateInfo>
 
           <ArrowSvg />
 
           <DateInfo>
             <DateTitle>Até</DateTitle>
-            <DateValue selected={false}>{rentalPeriod.endFormatted}</DateValue>
+            <DateValue selected={!!rentalPeriod.endFormatted}>
+              {rentalPeriod.endFormatted}
+            </DateValue>
           </DateInfo>
         </RentalPeriod>
       </Header>
