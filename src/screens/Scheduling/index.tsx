@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BackButton } from '../../components/BackButton';
 import { useTheme } from 'styled-components';
 import ArrowSvg from '../../assets/arrow.svg';
@@ -16,15 +16,35 @@ import {
 } from './styles';
 import { StatusBar } from 'react-native';
 import { Button } from '../../components/Button';
-import { Calendar } from '../../components/Calendar';
+import { Calendar, DayProps } from '../../components/Calendar';
 import { useNavigation } from '@react-navigation/native';
 
 export function Scheduling() {
   const theme = useTheme();
   const navigation = useNavigation();
+  const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
+    {} as DayProps
+  );
 
   function handleConfirmRental() {
     navigation.navigate('SchedulingDetails');
+  }
+
+  function handleBack() {
+    navigation.goBack();
+  }
+
+  function handleChangeDate(date: DayProps) {
+    let start = !lastSelectedDate.timestamp ? date : lastSelectedDate;
+    let end = date;
+
+    if (start.timestamp > end.timestamp) {
+      start = end;
+      end = start;
+    }
+
+    setLastSelectedDate(end);
+    const interval = 
   }
 
   return (
@@ -35,7 +55,7 @@ export function Scheduling() {
           translucent
           backgroundColor="transparent"
         />
-        <BackButton color={theme.colors.shape} onPress={() => {}} />
+        <BackButton color={theme.colors.shape} onPress={handleBack} />
 
         <Title>
           Excolha uma{'\n'}data para início e{'\n'}termino do Aluguel
@@ -57,7 +77,7 @@ export function Scheduling() {
       </Header>
 
       <Content>
-        <Calendar />
+        <Calendar markedDates={} onDayPress={handleChangeDate} />
       </Content>
 
       <Footer>
