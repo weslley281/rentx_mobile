@@ -1,4 +1,4 @@
-import { addDays } from 'date-fns';
+import { addDays } from 'date-fns/esm';
 import { Platform } from 'react-native';
 
 export function getPlatformDate(date: Date) {

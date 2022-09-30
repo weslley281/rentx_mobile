@@ -1,17 +1,23 @@
 export default {
   colors: {
-    header: '#1B1B1F',
-    background_primary: '#F4F5F6',
-    background_secondary: '#FFFFFF',
-    text: '#7A7A80',
-    text_detail: '#AEAEB3',
-    title: '#47474D',
-    line: '#EBEBF0',
-    main: '#0d730d',
-    main_light: '#DFEDEF',
-    success: '#03B252',
-    shape: '#E1E1E8',
-    shape_dark: '#29292E',
+    header: '#1b1b1f',
+
+    background_primary: '#f4f5f6',
+    background_secondary: '#fff',
+
+    text: '#7a7a80',
+    text_detail: '#aeaeb3',
+    title: '#47474d',
+
+    line: '#ebebf0',
+
+    main: '#dc1637',
+    main_light: '#fdedef',
+
+    success: '#03b252',
+
+    shape: '#e1e1e8',
+    shape_bold: '#29292e',
   },
   fonts: {
     primary_400: 'Inter_400Regular',
