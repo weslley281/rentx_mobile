@@ -23,18 +23,20 @@ import {
 import { Button } from '../../components/Button';
 import { CarDTO } from '../../dtos/CarDTO';
 import { getAccessoriesIcon } from '../../utils/getAccessoriesIcon';
+import { NavigationProps } from '../../dtos/NavigationDTO';
 
-interface Params {
+interface Params extends NavigationProps {
   car: CarDTO;
+  goBack: () => void;
 }
 
 export function CarDetails() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<Params>();
   const route = useRoute();
   const { car } = route.params as Params;
 
   function handleConfirmRental() {
-    navigation.navigate('Scheduling');
+    navigation.navigate('Scheduling', { car });
   }
 
   function handleBack() {

@@ -14,15 +14,7 @@ import { Car } from '../../components/Car';
 import { api } from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
 import { Load } from '../../components/Load';
-
-interface NavigationProps {
-  navigate: (
-    screen: string,
-    carObject: {
-      car: CarDTO;
-    }
-  ) => void;
-}
+import { NavigationProps } from '../../dtos/NavigationDTO';
 
 export function Home() {
   const [cars, setCars] = useState<CarDTO[]>([]);

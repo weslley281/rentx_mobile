@@ -21,20 +21,25 @@ import {
   generateInterval,
   MarkedDateProps,
 } from '../../components/Calendar';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns/esm';
 import { getPlatformDate } from '../../utils/getPlataformDate';
+import { CarDTO } from '../../dtos/CarDTO';
+import { NavigationProps } from '../../dtos/NavigationDTO';
 
 interface RentalPeriod {
-  start: number;
   startFormatted: string;
-  end: number;
   endFormatted: string;
+}
+
+interface Params extends NavigationProps {
+  car: CarDTO;
+  goBack: () => void;
 }
 
 export function Scheduling() {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<Params>();
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>(
     {} as MarkedDateProps
   );
@@ -44,15 +49,18 @@ export function Scheduling() {
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
     {} as RentalPeriod
   );
+  const route = useRoute();
+  const { car } = route.params as Params;
 
   function handleConfirmRental() {
-    if (!rentalPeriod.start || !rentalPeriod.end) {
+    if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
       Alert.alert('Selecione um intervalo para alugar.');
+    } else {
+      navigation.navigate('SchedulingDetails', {
+        car,
+        dates: Object.keys(markedDates),
+      });
     }
-    navigation.navigate('SchedulingDetails', {
-      car,
-      dates: Object.keys(markedDates),
-    });
   }
 
   function handleBack() {
@@ -76,8 +84,6 @@ export function Scheduling() {
     const endDate = Object.keys(interval)[Object.keys(interval).length - 1];
 
     setRentalPeriod({
-      start: start.timestamp,
-      end: end.timestamp,
       startFormatted: format(
         getPlatformDate(new Date(firstDate)),
         'dd/MM/yyyy'
