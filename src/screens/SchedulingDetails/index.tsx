@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Accessory } from '../../components/Accessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';

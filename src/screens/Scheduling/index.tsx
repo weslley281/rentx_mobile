@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BackButton } from '../../components/BackButton';
 import { useTheme } from 'styled-components';
 import ArrowSvg from '../../assets/arrow.svg';
-
 import {
   Container,
   Content,
@@ -23,6 +22,15 @@ import {
   MarkedDateProps,
 } from '../../components/Calendar';
 import { useNavigation } from '@react-navigation/native';
+import { format } from 'date-fns/esm';
+import { getPlatformDate } from '../../utils/getPlataformDate';
+
+interface RentalPeriod {
+  start: number;
+  startFormatted: string;
+  end: number;
+  endFormatted: string;
+}
 
 export function Scheduling() {
   const theme = useTheme();
@@ -32,6 +40,9 @@ export function Scheduling() {
   );
   const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
     {} as DayProps
+  );
+  const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
+    {} as RentalPeriod
   );
 
   function handleConfirmRental() {
@@ -54,6 +65,19 @@ export function Scheduling() {
     setLastSelectedDate(end);
     const interval = generateInterval(start, end);
     setMarkedDates(interval);
+
+    const firstDate = Object.keys(interval)[0];
+    const endDate = Object.keys(interval)[Object.keys(interval).length - 1];
+
+    setRentalPeriod({
+      start: start.timestamp,
+      end: end.timestamp,
+      startFormatted: format(
+        getPlatformDate(new Date(firstDate)),
+        'dd/MM/yyyy'
+      ),
+      endFormatted: format(getPlatformDate(new Date(firstDate)), 'dd/MM/yyyy'),
+    });
   }
 
   return (
@@ -73,14 +97,14 @@ export function Scheduling() {
         <RentalPeriod>
           <DateInfo>
             <DateTitle>De</DateTitle>
-            <DateValue selected={true}>10/09/2022</DateValue>
+            <DateValue selected={true}>{rentalPeriod.startFormatted}</DateValue>
           </DateInfo>
 
           <ArrowSvg />
 
           <DateInfo>
             <DateTitle>Até</DateTitle>
-            <DateValue selected={false}>10/09/2022</DateValue>
+            <DateValue selected={false}>{rentalPeriod.endFormatted}</DateValue>
           </DateInfo>
         </RentalPeriod>
       </Header>
