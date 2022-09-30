@@ -88,7 +88,7 @@ export function Scheduling() {
         getPlatformDate(new Date(firstDate)),
         'dd/MM/yyyy'
       ),
-      endFormatted: format(getPlatformDate(new Date(firstDate)), 'dd/MM/yyyy'),
+      endFormatted: format(getPlatformDate(new Date(endDate)), 'dd/MM/yyyy'),
     });
   }
 
