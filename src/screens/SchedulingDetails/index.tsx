@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accessory } from '../../components/Accessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
@@ -30,19 +30,34 @@ import {
   RentalPriceTotal,
 } from './styles';
 
-import SpeedSvg from '../../assets/speed.svg';
-import AccelerationSvg from '../../assets/acceleration.svg';
-import ForceSvg from '../../assets/force.svg';
-import GasolineSvg from '../../assets/gasoline.svg';
-import ExchangeSvg from '../../assets/exchange.svg';
-import PeopleSvg from '../../assets/people.svg';
+import { getAccessoriesIcon } from '../../utils/getAccessoriesIcon';
 import { Button } from '../../components/Button';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { NavigationProps } from '../../dtos/NavigationDTO';
+import { CarDTO } from '../../dtos/CarDTO';
+import { format } from 'date-fns';
+import { getPlatformDate } from '../../utils/getPlataformDate';
+
+interface Params extends NavigationProps {
+  car: CarDTO;
+  dates: string[];
+  goBack: () => void;
+}
+
+interface RentalPeriod {
+  start: string;
+  end: string;
+}
 
 export function SchedulingDetails() {
+  const [rentalPeriode, setRentalPeriode] = useState<RentalPeriod>(
+    {} as RentalPeriod
+  );
   const theme = useTheme();
   const navigation = useNavigation();
+  const route = useRoute();
+  const { car, dates } = route.params as Params;
 
   function handleConfirm() {
     navigation.navigate('SchedulingComplete');
@@ -52,6 +67,13 @@ export function SchedulingDetails() {
     navigation.goBack();
   }
 
+  useEffect(() => {
+    setRentalPeriode({
+      start: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+      end: format(getPlatformDate(new Date(dates.length - 1)), 'dd/MM/yyyy'),
+    });
+  });
+
   return (
     <Container>
       <Header>
@@ -59,33 +81,30 @@ export function SchedulingDetails() {
       </Header>
 
       <CarImages>
-        <ImageSlider
-          imagesUrl={[
-            'https://media.gm.com/content/Pages/news/br/pt/2011/Feb/0202_celta/jcr:content/image.resize.maxw_600.jpg/1301066044243.jpg',
-          ]}
-        />
+        <ImageSlider imagesUrl={car.photos} />
       </CarImages>
 
       <Content>
         <Details>
           <Description>
-            <Brand>Celta</Brand>
-            <Name>Celta 2012 1.0</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
           </Description>
 
           <Rent>
             <Period>Ao dia</Period>
-            <Price>R$ 60.00</Price>
+            <Price>R$ {car.rent.price}</Price>
           </Rent>
         </Details>
 
         <Accessories>
-          <Accessory name="120Km/h" icon={SpeedSvg} />
-          <Accessory name="1.2s" icon={AccelerationSvg} />
-          <Accessory name="200 HP" icon={ForceSvg} />
-          <Accessory name="Gasoline" icon={GasolineSvg} />
-          <Accessory name="Auto" icon={ExchangeSvg} />
-          <Accessory name="5 pessoas" icon={PeopleSvg} />
+          {car.accessories.map((accessory) => (
+            <Accessory
+              key={accessory.type}
+              name={accessory.name}
+              icon={getAccessoriesIcon(accessory.type)}
+            />
+          ))}
         </Accessories>
 
         <RentalPeriod>
@@ -99,7 +118,7 @@ export function SchedulingDetails() {
 
           <DateInfo>
             <DateTitle>De</DateTitle>
-            <DateValue>18/06/2023</DateValue>
+            <DateValue>{rentalPeriode.start}</DateValue>
           </DateInfo>
 
           <Feather

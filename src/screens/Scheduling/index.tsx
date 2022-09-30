@@ -53,13 +53,18 @@ export function Scheduling() {
   const { car } = route.params as Params;
 
   function handleConfirmRental() {
+    console.log('Você Clicou');
     if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
       Alert.alert('Selecione um intervalo para alugar.');
     } else {
-      navigation.navigate('SchedulingDetails', {
-        car,
-        dates: Object.keys(markedDates),
-      });
+      try {
+        navigation.navigate('SchedulingDetails', {
+          car,
+          dates: Object.keys(markedDates),
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
