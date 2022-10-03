@@ -38,6 +38,8 @@ import { NavigationProps } from '../../dtos/NavigationDTO';
 import { CarDTO } from '../../dtos/CarDTO';
 import { format } from 'date-fns';
 import { getPlatformDate } from '../../utils/getPlataformDate';
+import { api } from '../../services/api';
+import { Alert } from 'react-native';
 
 interface Params extends NavigationProps {
   car: CarDTO;
@@ -58,9 +60,26 @@ export function SchedulingDetails() {
   const navigation = useNavigation();
   const route = useRoute();
   const { car, dates } = route.params as Params;
+  const rentTotal = Number(dates.length * car.rent.price);
 
-  function handleConfirm() {
-    navigation.navigate('SchedulingComplete');
+  async function handleConfirmRental() {
+    const schedulesByCar = await api.get(`/schedules_bycars/${car.id}`);
+    const unavailable_dates = [
+      ...schedulesByCar.data.unavailable_dates,
+      ...dates,
+    ];
+
+    api
+      .put(`/schedules_bycars/${car.id}`, {
+        id: car.id,
+        unavailable_dates,
+      })
+      .then(() => navigation.navigate('SchedulingComplete'))
+      .catch(() =>
+        Alert.alert(
+          'Não foi possivel confirmar o agendamento \n Contate o Desenvolvedor do App'
+        )
+      );
   }
 
   function handleBack() {
@@ -70,9 +89,12 @@ export function SchedulingDetails() {
   useEffect(() => {
     setRentalPeriode({
       start: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
-      end: format(getPlatformDate(new Date(dates.length - 1)), 'dd/MM/yyyy'),
+      end: format(
+        getPlatformDate(new Date(dates[dates.length - 1])),
+        'dd/MM/yyyy'
+      ),
     });
-  });
+  }, [dates]);
 
   return (
     <Container>
@@ -136,8 +158,10 @@ export function SchedulingDetails() {
         <RentalPrice>
           <RentalPriceLabel>Total</RentalPriceLabel>
           <RentalPriceDetail>
-            <RentalPriceQuote>R$ 360.00 3x diária</RentalPriceQuote>
-            <RentalPriceTotal>R$ 10000,00</RentalPriceTotal>
+            <RentalPriceQuote>
+              R$ {car.rent.price} para {dates.length} diária
+            </RentalPriceQuote>
+            <RentalPriceTotal>R$ {rentTotal}</RentalPriceTotal>
           </RentalPriceDetail>
         </RentalPrice>
       </Content>
@@ -146,7 +170,7 @@ export function SchedulingDetails() {
         <Button
           title="Alugar Agora"
           color={theme.colors.success}
-          onPress={handleConfirm}
+          onPress={handleConfirmRental}
         />
       </Footer>
     </Container>
