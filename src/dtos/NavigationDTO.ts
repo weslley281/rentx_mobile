@@ -4,7 +4,7 @@ export interface NavigationProps {
   navigate: (
     screen: string,
     carObject: {
-      car: CarDTO;
+      car?: CarDTO;
       dates?: string[];
     }
   ) => void;
