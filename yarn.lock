@@ -1706,6 +1706,11 @@
     prompts "^2.4.0"
     semver "^6.3.0"
 
+"@react-native-community/netinfo@^9.3.3":
+  version "9.3.3"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-9.3.3.tgz#ee6a36f7f084d84e90342743026717e7ddad6a90"
+  integrity sha512-/nlrGqItwRnqjis7yWhUq6lpxS8Sm1DMNsjNfABih9wGnh58Tu28z3Box/ifFnu0kD2Fdp0UZXe74QwoZDKA4A==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@react-native/assets/-/assets-1.0.0.tgz#c6f9bf63d274bafc8e970628de24986b30a55c8e"
@@ -5982,6 +5987,11 @@ react-native-codegen@^0.69.2:
     flow-parser "^0.121.0"
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
+
+react-native-fast-image@^8.6.1:
+  version "8.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.1.tgz#6a3a11b8ebc7629919265d33a420a04d13c897e0"
+  integrity sha512-ILuP7EuakqHNzTr8ZbumhuxG4tE/wGQ66z4nEEuzc0FlqY6rYaPsnq/UD2ahoyFj6QP1WvA2RIK3odib+VcqWg==
 
 react-native-gesture-handler@~2.5.0:
   version "2.5.0"
