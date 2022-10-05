@@ -53,6 +53,7 @@ interface RentalPeriod {
 }
 
 export function SchedulingDetails() {
+  const [loading, setLoading] = useState(false);
   const [rentalPeriode, setRentalPeriode] = useState<RentalPeriod>(
     {} as RentalPeriod
   );
@@ -85,11 +86,12 @@ export function SchedulingDetails() {
         unavailable_dates,
       })
       .then(() => navigation.navigate('SchedulingComplete'))
-      .catch(() =>
+      .catch(() => {
+        setLoading(false);
         Alert.alert(
           'Não foi possivel confirmar o agendamento \n Contate o Desenvolvedor do App'
-        )
-      );
+        );
+      });
   }
 
   function handleBack() {
@@ -181,6 +183,8 @@ export function SchedulingDetails() {
           title="Alugar Agora"
           color={theme.colors.success}
           onPress={handleConfirmRental}
+          loading={loading}
+          enabled={!loading}
         />
       </Footer>
     </Container>
