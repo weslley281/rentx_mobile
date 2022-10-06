@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accessory } from '../../components/Accessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
@@ -25,12 +25,15 @@ import {
   Period,
   Price,
   Rent,
+  SliderContent,
 } from './styles';
 import { Button } from '../../components/Button';
 import { CarDTO } from '../../dtos/CarDTO';
 import { getAccessoriesIcon } from '../../utils/getAccessoriesIcon';
 import { NavigationProps } from '../../dtos/NavigationDTO';
-import { ScrollView } from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { api } from '../../services/api';
 
 interface Params extends NavigationProps {
   car: CarDTO;
@@ -38,10 +41,14 @@ interface Params extends NavigationProps {
 }
 
 export function CarDetails() {
+  const { navigate, goBack } = useNavigation<any>();
+  const { params } = useRoute();
+  const netInfo = useNetInfo();
   const scrollY = useSharedValue(0);
   const navigation = useNavigation<Params>();
   const route = useRoute();
-  const { car } = route.params as Params;
+  const { car } = params as Params;
+  const [carUpdated, setCarUpdated] = useState<CarDTO>({} as CarDTO);
 
   const headerStyleAnimation = useAnimatedStyle(() => {
     return {
@@ -61,24 +68,48 @@ export function CarDetails() {
   });
 
   function handleConfirmRental() {
-    navigation.navigate('Scheduling', { car });
+    navigate('Scheduling', { car });
   }
 
   function handleBack() {
-    navigation.goBack();
+    goBack();
   }
+
+  useEffect(() => {
+    async function fetchCarUpdated() {
+      const response = await api.get(`/cars/${car.id}`);
+      setCarUpdated(response.data);
+    }
+
+    if (netInfo.isConnected === true) {
+      fetchCarUpdated();
+    }
+  }, [netInfo.isConnected]);
 
   return (
     <Container>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="dark-content"
+      />
+
       <Animated.View style={[headerStyleAnimation]}>
         <Header>
           <BackButton onPress={handleBack} />
         </Header>
 
         <Animated.View style={sliderStyleAnimation}>
-          <CarImages>
+          <SliderContent>
+            {/* <ImageSlider
+              imagesUrl={
+                !!carUpdated.photos
+                  ? carUpdated.photos
+                  : [{ id: car.thumbnail, photo: car.thumbnail }]
+              }
+            /> */}
             <ImageSlider imagesUrl={car.photos} />
-          </CarImages>
+          </SliderContent>
         </Animated.View>
       </Animated.View>
 
@@ -117,6 +148,7 @@ export function CarDetails() {
         <Button
           title="Escolher Periodo do Aluguel"
           onPress={handleConfirmRental}
+          enabled={!!netInfo.isConnected}
         />
       </Footer>
     </Container>

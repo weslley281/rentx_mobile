@@ -24,13 +24,14 @@ export function Home() {
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation<NavigationProps>();
+  const { navigate, goBack } = useNavigation<any>();
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate('CarDetails', { car });
   }
 
-  function handleOpenMyCars(car: CarDTO) {
-    navigation.navigate('MyCars');
+  function handleOpenMyCars() {
+    navigate('MyCars');
   }
 
   useEffect(() => {

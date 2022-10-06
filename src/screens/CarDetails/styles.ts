@@ -90,3 +90,8 @@ export const Footer = styled.View`
   background-color: ${({ theme }) => theme.colors.background_primary};
   padding: 24px 24px ${getBottomSpace() + 24}px;
 `;
+
+export const SliderContent = styled.View`
+  padding-top: ${RFValue(72)}px;
+  margin-bottom: 20px;
+`;
