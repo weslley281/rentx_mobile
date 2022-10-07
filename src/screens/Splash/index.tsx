@@ -56,7 +56,7 @@ export const Splash: React.FC = () => {
 
   function startApp() {
     //const screenName = user.id ? 'Home' : 'SignIn';
-    navigate('Home');
+    navigate('SignIn');
   }
 
   useEffect(() => {
