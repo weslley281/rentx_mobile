@@ -1,9 +1,10 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
 import theme from '../../styles/theme';
 
-import { Footer, Container, Header, SubTitle, Title } from './styles';
+import { Footer, Container, Header, SubTitle, Title, Form } from './styles';
 
 export function SignIn() {
   return (
@@ -19,6 +20,10 @@ export function SignIn() {
           Faça seu login para começar{'\n'}uma experiência incrível
         </SubTitle>
       </Header>
+
+      <Form>
+        <Input iconName="mail" />
+      </Form>
 
       <Footer>
         <Button title="Login" onPress={() => {}} loading={false} />
