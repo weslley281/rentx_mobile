@@ -22,7 +22,7 @@ export function SignIn() {
       </Header>
 
       <Form>
-        <Input iconName="mail" />
+        <Input iconName="mail" placeholder="Digite seu Email" />
       </Form>
 
       <Footer>
