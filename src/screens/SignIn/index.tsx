@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { PasswordInput } from '../../components/PasswordInput';
 import theme from '../../styles/theme';
 
 import { Footer, Container, Header, SubTitle, Title, Form } from './styles';
@@ -23,6 +24,8 @@ export function SignIn() {
 
       <Form>
         <Input iconName="mail" placeholder="Digite seu Email" />
+
+        <PasswordInput iconName="key" placeholder="Digite sua Senha" />
       </Form>
 
       <Footer>
