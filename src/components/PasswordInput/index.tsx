@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInputProps } from 'react-native';
+import { KeyboardAvoidingView, TextInputProps } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { useTheme } from 'styled-components';
 import { RFValue } from 'react-native-responsive-fontsize';
