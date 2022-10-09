@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
 import {
-  Alert,
-  Keyboard,
-  KeyboardAvoidingView,
   StatusBar,
+  KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
 } from 'react-native';
+import { useTheme } from 'styled-components';
+import * as Yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
+
+// import { useAuth } from '../../hooks/auth';
+
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { PasswordInput } from '../../components/PasswordInput';
-import theme from '../../styles/theme';
-import * as Yup from 'yup';
 
-import { Footer, Container, Header, SubTitle, Title, Form } from './styles';
-import { useTheme } from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
+import {
+  Container,
+  Header,
+  Title,
+  Subtitle,
+  Buttons,
+  Form,
+  Separator,
+} from './styles';
 
-export function SignIn() {
+export const SignIn: React.FC = () => {
   // const { signIn } = useAuth();
   const { colors } = useTheme();
   const { navigate } = useNavigation<any>();
@@ -50,51 +60,61 @@ export function SignIn() {
   }
 
   return (
-    <KeyboardAvoidingView behavior="position" enabled>
+    <KeyboardAvoidingView behavior="position">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
           <StatusBar
-            barStyle="dark-content"
             translucent
             backgroundColor="transparent"
+            barStyle="light-content"
           />
+
           <Header>
-            <Title>Estamos{'\n'}quase lá</Title>
-            <SubTitle>
-              Faça seu login para começar{'\n'}uma experiência incrível
-            </SubTitle>
+            <Title>{'Estamos\nquase lá.'}</Title>
+            <Subtitle>
+              {'Faça seu login para começar\numa experiência incrível.'}
+            </Subtitle>
           </Header>
 
           <Form>
             <Input
               iconName="mail"
-              placeholder="Digite seu Email"
+              placeholder="Email"
+              keyboardType="email-address"
+              autoCorrect={false}
+              autoCapitalize="none"
               value={email}
               onChangeText={setEmail}
             />
 
             <PasswordInput
-              iconName="key"
-              placeholder="Digite sua Senha"
+              iconName="lock"
+              placeholder="Senha"
               value={password}
               onChangeText={setPassword}
             />
           </Form>
 
-          <Footer>
-            <Button title="Login" onPress={() => {}} loading={false} />
+          <Buttons>
+            <Button
+              title="Login"
+              enabled={true}
+              loading={false}
+              onPress={handleSignIn}
+            />
+
+            <Separator />
 
             <Button
-              title="Criar uma conta gratuita"
+              title="Criar conta gratuita"
               onPress={hanldeNewAccount}
-              loading={false}
               enabled={true}
+              color={colors.background_secondary}
               light
-              color={theme.colors.background_secondary}
             />
-          </Footer>
+          </Buttons>
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
-}
+};

@@ -8,31 +8,39 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  margin-top: ${RFValue(116)}px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: ${RFValue(60)}px;
+`;
+
+export const Bullets = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.secondary_600};
-  font-size: ${RFValue(40)}px;
   color: ${({ theme }) => theme.colors.title};
-  margin-bottom: 16px;
+  font-size: ${RFValue(40)}px;
+  margin: 60px 0 16px;
 `;
 
 export const Subtitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.primary_400};
-  font-size: ${RFValue(15)}px;
   color: ${({ theme }) => theme.colors.text};
+  font-size: ${RFValue(15)}px;
   line-height: ${RFValue(25)}px;
 `;
 
 export const Form = styled.View`
   width: 100%;
-  margin: 64px 0;
+  margin: 64px 0 16px;
 `;
 
-export const Buttons = styled.View``;
-
-export const Separator = styled.View`
-  width: 100%;
-  height: 8px;
+export const FormTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.secondary_600};
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${RFValue(20)}px;
+  margin-bottom: 24px;
 `;
