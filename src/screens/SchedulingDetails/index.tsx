@@ -58,7 +58,7 @@ export function SchedulingDetails() {
     {} as RentalPeriod
   );
   const theme = useTheme();
-  const navigation = useNavigation();
+  const { navigate, goBack } = useNavigation<any>();
   const route = useRoute();
   const { car, dates } = route.params as Params;
   const rentTotal = Number(dates.length * car.rent.price);
@@ -85,7 +85,7 @@ export function SchedulingDetails() {
         id: car.id,
         unavailable_dates,
       })
-      .then(() => navigation.navigate('SchedulingComplete'))
+      .then(() => navigate('Confirmation'))
       .catch(() => {
         setLoading(false);
         Alert.alert(
@@ -95,7 +95,7 @@ export function SchedulingDetails() {
   }
 
   function handleBack() {
-    navigation.goBack();
+    goBack();
   }
 
   useEffect(() => {

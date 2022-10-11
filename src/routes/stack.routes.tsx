@@ -3,7 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from '../screens/Home';
 import { Scheduling } from '../screens/Scheduling';
-import { SchedulingComplete } from '../screens/SchedulingComplete';
+import { Confirmation } from '../screens/Confirmation';
 import { SchedulingDetails } from '../screens/SchedulingDetails';
 import { CarDetails } from '../screens/CarDetails';
 import { MyCars } from '../screens/MyCars';
@@ -23,7 +23,7 @@ export function StackRoutes() {
       <Screen name="CarDetails" component={CarDetails} />
       <Screen name="Scheduling" component={Scheduling} />
       <Screen name="SchedulingDetails" component={SchedulingDetails} />
-      <Screen name="SchedulingComplete" component={SchedulingComplete} />
+      <Screen name="Confirmation" component={Confirmation} />
       <Screen name="MyCars" component={MyCars} />
       <Screen name="StepOne" component={StepOne} />
       <Screen name="StepTwo" component={StepTwo} />

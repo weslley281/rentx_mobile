@@ -66,7 +66,7 @@ export const StepTwo: React.FC = () => {
       .then(() => {
         navigate('Confirmation', {
           title: 'Conta criada!',
-          message: '',
+          message: 'Agora é só desfrutar de nossos serviços',
           nextScreenRoute: 'SignIn',
         });
       })
