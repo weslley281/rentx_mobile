@@ -10,7 +10,7 @@ import { useTheme } from 'styled-components';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 
-// import { useAuth } from '../../hooks/auth';
+import { useAuth } from '../../hooks/auth';
 
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
@@ -27,7 +27,7 @@ import {
 } from './styles';
 
 export const SignIn: React.FC = () => {
-  // const { signIn } = useAuth();
+  const { signIn } = useAuth();
   const { colors } = useTheme();
   const { navigate } = useNavigation<any>();
 
@@ -45,7 +45,7 @@ export const SignIn: React.FC = () => {
 
       await schema.validate({ email, password });
 
-      // signIn({ email, password });
+      signIn({ email, password });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         Alert.alert('Atenção!', error.message);
